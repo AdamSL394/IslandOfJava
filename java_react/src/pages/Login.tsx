@@ -1,7 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import { useState } from "react";
 
 const Login : React.FC<{}> = (): JSX.Element => {
+   const [loading , setLoading] = useState(false);
+   const [message , setMessage] = useState("Please Login");
 
    interface requestOptions {
       method: string,
@@ -11,14 +14,13 @@ const Login : React.FC<{}> = (): JSX.Element => {
 
    }
    
-   const signUp = () => {
+   const  signUp = async (formValue: { username: string; password: string }) => {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("Cookie", "Tester=s%3AyD55O6I-VA2mDiByiC8Ktbf7-cJpLcwG.9FF2gmkaowp6G3dZOgAXXGabvsiGJqVpCnPpeYX3R3c");
       
       var raw = JSON.stringify({
-        "userName": "Adam",
-        "email": "alehrer@box.com",
+        "username": "User1",
+        "email": "lehreradam@yahoo.com",
         "password": "password",
         "roles": [
           "ROLE_USER"
@@ -32,18 +34,24 @@ const Login : React.FC<{}> = (): JSX.Element => {
         redirect: 'follow'
       };
       
-      fetch("http://localhost:8080/api/auth/signup", requestOptions)
+      await fetch("http://localhost:8080/api/auth/signup", requestOptions)
         .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+        .then(result =>{
+         setMessage(JSON.parse(result).message) })
+        .catch(error => {
+      console.log("here")
+      console.log(error,'asasd')
+      });
    }
 
    const initialValues = {
       username: "",
       password: "",
     };
+
+
     return (
-     <div>
+     <div >
         SignUp Component
         <NavLink to={"/home"}> Login ! </NavLink>
         <div className="col-md-12">
@@ -55,7 +63,7 @@ const Login : React.FC<{}> = (): JSX.Element => {
           />
 
           <Formik
-               onSubmit={() => signUp()} 
+               onSubmit={signUp} 
                initialValues={initialValues}          
                    >
             <Form>
@@ -79,9 +87,9 @@ const Login : React.FC<{}> = (): JSX.Element => {
                 />
               </div>
 
-              {/*  <div className="form-group">
+              <div className="form-group">
                <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
-                  {loading && (
+                {loading && (
                     <span className="spinner-border spinner-border-sm"></span>
                   )}
                   <span>Login</span>
@@ -94,7 +102,7 @@ const Login : React.FC<{}> = (): JSX.Element => {
                     {message}
                   </div>
                 </div>
-              )} */}
+              )}
             </Form>
           </Formik>
         </div>
