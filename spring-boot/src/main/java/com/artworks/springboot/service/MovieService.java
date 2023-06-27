@@ -1,4 +1,4 @@
-package com.artworks.springboot;
+package com.artworks.springboot.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,10 +8,13 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
+// import org.springframework.http.HttpEntity;
+// import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import com.artworks.springboot.models.Movie;
+import com.artworks.springboot.repository.MovieRepository;
 
 @Service
 public class MovieService {
@@ -53,10 +56,10 @@ public class MovieService {
         try {
             String url = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=mcFEgDJvSerB0MXK50KOkvJ2HPpbzVqtV6r3Cgv6";
             RestTemplate callChatEndpoint = new RestTemplate();
-            HttpHeaders headers = new HttpHeaders();
+            //HttpHeaders headers = new HttpHeaders();
             // headers.setContentType(MediaType.APPLICATION_JSON);
             // headers.setBearerAuth("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");
-            HttpEntity<HashMap<String, String>> entity = new HttpEntity<>(question, headers);
+            //HttpEntity<HashMap<String, String>> entity = new HttpEntity<>(question, headers);
     
             String result = callChatEndpoint.getForObject(url,String.class);
     

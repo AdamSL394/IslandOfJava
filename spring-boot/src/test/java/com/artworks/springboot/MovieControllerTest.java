@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import com.artworks.springboot.controllers.MovieController;
+import com.artworks.springboot.repository.MovieRepository;
 import com.mongodb.assertions.Assertions;
 
 @SpringBootTest

@@ -1,4 +1,4 @@
-package com.artworks.springboot;
+package com.artworks.springboot.models;
 
 
 

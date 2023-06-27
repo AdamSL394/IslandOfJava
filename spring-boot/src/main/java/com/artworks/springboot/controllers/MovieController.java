@@ -1,4 +1,4 @@
-package com.artworks.springboot;
+package com.artworks.springboot.controllers;
 
 import java.util.List;
 import java.util.HashMap;
@@ -6,6 +6,8 @@ import java.util.HashMap;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.artworks.springboot.models.Movie;
+import com.artworks.springboot.service.MovieService;
 
 @RestController
 @RequestMapping("/api/v1/movies")
@@ -45,16 +50,19 @@ public class MovieController {
         }
 
     @PostMapping("create")
+    @PreAuthorize("hasRole('ROLE_VIEWER') or hasRole('ROLE_EDITOR')")
         public void createMovie(@RequestBody Movie movie) {
             movieService.createMovie(movie);
         }
 
     @PutMapping("update/{id}")
+
         public void updateMovie(@PathVariable("id") ObjectId id, @RequestBody Movie movieName) {
             movieService.updateMovie(id,movieName);
         }
 
         @GetMapping("/chatgpt")
+        @Secured({ "ROLE_VIEWER", "ROLE_EDITOR" })
         public ResponseEntity<String> callOpenAi(@RequestBody HashMap<String,String> question){
             System.out.println("dsfsd");
         return new ResponseEntity<String>(movieService.callChatGpt(question), HttpStatus.OK);
