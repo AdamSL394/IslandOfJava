@@ -49,7 +49,7 @@ public class User {
         return username;
     }
 
-    public void setUsername(String name) {
+    public void setusername(String name) {
         this.username = name;
     }
 
