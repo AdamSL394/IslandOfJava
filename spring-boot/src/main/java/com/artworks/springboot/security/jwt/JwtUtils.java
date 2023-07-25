@@ -19,7 +19,7 @@ import io.jsonwebtoken.security.Keys;
 public class JwtUtils {
   private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-  @Value("1234354676")
+  @Value("1234354676dsfdfsdfwn24klrn1234354676dsfdfsdfwn24klrn23rgdfvdfa")
   private String jwtSecret;
 
   @Value("345678")

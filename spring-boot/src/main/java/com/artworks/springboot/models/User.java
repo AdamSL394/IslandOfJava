@@ -16,7 +16,7 @@ import jakarta.validation.constraints.Size;
 public class User {
 
     @Id
-    private ObjectId id;
+    private String id;
     @NonNull
     private String username;
     @NonNull
@@ -37,16 +37,16 @@ public class User {
         this.password = password;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setusername(String name) {
@@ -74,6 +74,6 @@ public class User {
     }
 
     public String getPassword() {
-        return null;
+        return this.password;
     }
 }

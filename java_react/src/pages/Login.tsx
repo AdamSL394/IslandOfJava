@@ -19,8 +19,8 @@ const Login : React.FC<{}> = (): JSX.Element => {
       myHeaders.append("Content-Type", "application/json");
       
       var raw = JSON.stringify({
-        "username": "User1",
-        "email": "lehreradam@yahoo.com",
+        "username": "User2",
+        "email": "test@test.com",
         "password": "password",
         "roles": [
           "ROLE_USER"
@@ -43,6 +43,35 @@ const Login : React.FC<{}> = (): JSX.Element => {
       console.log(error,'asasd')
       });
    }
+   const  Login = async (formValue: { username: string; password: string }) => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    
+    var raw = JSON.stringify({
+      "username": "User2",
+      "email": "test@test.com",
+      "password": "password",
+      "roles": [
+        "ROLE_USER"
+      ]
+    });
+    
+    var requestOptions : requestOptions= {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    
+    await fetch("http://localhost:8080/api/auth/signup", requestOptions)
+      .then(response => response.text())
+      .then(result =>{
+       setMessage(JSON.parse(result).message) })
+      .catch(error => {
+    console.log("here")
+    console.log(error,'asasd')
+    });
+ }
 
    const initialValues = {
       username: "",
